@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "All Chefs";
+}
+
+<div class="row mt-3">
+    <div class="col-6 text-right border-right">
+        <h1 class="display-4">Chefs</h1>
+    </div>
+    <div class="d-flex col-6 justify-content-between align-items-center border-left">
+        <h1 class="display-4"><a href="/dishes">Dishes</a></h1>
+        <a href="/chefs/new">Add a Chef</a>
+    </div>
+</div>
+<h2>Check out our roster of Chefs!</h2>
+<hr>
+<table class="table table-striped table-borderless">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th># of Dishes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Chef c in ViewBag.AllChefs)
+        {
+            <tr>
+                <td>@c.FirstName @c.LastName</td>
+                @if (DateTime.Now.Month <= c.DOB.Month && DateTime.Now.Day < c.DOB.Day)
+                {
+                    <td>@DateTime.Now.AddYears(-c.DOB.Year - 1).Year</td>
+                }
+                else
+                {
+                    <td>@DateTime.Now.AddYears(-c.DOB.Year).Year</td>
+                }
+
+
+                <td>@c.CreatedDishes.Count</td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
